@@ -1,0 +1,4 @@
+# Add src/bootstrap/ and src/bootstrap-5.3.8/ to .gitignore
+
+src/bootstrap/
+src/bootstrap-5.3.8/
