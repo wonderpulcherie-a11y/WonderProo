@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription WonderPro</title>
+    <link rel="stylesheet" href="src/bootstrap/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/bootstrap-5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/bootstrap-5.3.8/bootstrap-icons-1.13.1/bootstrap-icons.css">
+    
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            background:#f4f7fc;
+            font-family:Arial, Helvetica, sans-serif;
+            overflow-x:hidden;
+        }
+
+        .main-container{
+            min-height:100vh;
+        }
+
+        /* PARTIE GAUCHE */
+
+        .left-side{
+            background:
+            linear-gradient(rgba(13,110,253,0.88), rgba(13,110,253,0.92)),
+            url('src/images/informatique.jpeg');
+
+            background-size:cover;
+            background-position:center;
+
+            color:white;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+
+            padding:50px;
+        }
+
+        .left-side h1{
+            font-size:3rem;
+            font-weight:bold;
+        }
+
+        .left-side p{
+            margin-top:20px;
+            font-size:18px;
+            line-height:1.8;
+            max-width:500px;
+        }
+
+        /* PARTIE DROITE */
+
+        .right-side{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+        }
+
+        .register-card{
+            width:100%;
+            max-width:700px;
+
+            background:white;
+
+            border-radius:25px;
+
+            padding:40px;
+
+            box-shadow:0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .register-card h2{
+            font-weight:bold;
+        }
+
+        .register-card p{
+            color:gray;
+        }
+
+        /* STEPS */
+
+        .step{
+            display:none;
+            animation:fade .3s ease;
+        }
+
+        .step.active{
+            display:block;
+        }
+
+        @keyframes fade{
+            from{
+                opacity:0;
+                transform:translateY(15px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* BARRE PROGRESSION */
+
+        .progress{
+            height:10px;
+            border-radius:20px;
+            margin-bottom:30px;
+        }
+
+        .progress-bar{
+            transition:0.4s;
+        }
+
+        /* INPUTS */
+
+        .form-control,
+        .form-select{
+            height:50px;
+            border-radius:12px;
+        }
+
+        textarea.form-control{
+            height:auto;
+        }
+
+        .input-group-text{
+            border-radius:12px 0 0 12px;
+        }
+
+        /* CHOIX PROFIL */
+
+        .user-type{
+            border:2px solid #dee2e6;
+            border-radius:15px;
+            padding:20px;
+            text-align:center;
+            cursor:pointer;
+            transition:0.3s;
+            background:white;
+        }
+
+        .user-type:hover{
+            border-color:#0d6efd;
+            transform:translateY(-3px);
+        }
+
+        .btn-check:checked + .user-type{
+            border-color:#0d6efd;
+            background:#eef4ff;
+            color:#0d6efd;
+        }
+
+        /* BOUTONS */
+
+        .btn-custom{
+            height:50px;
+            border-radius:12px;
+            font-weight:bold;
+        }
+
+        /* IMAGE PREVIEW */
+
+        .logo-preview{
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            object-fit:cover;
+            border:4px solid #dee2e6;
+            display:none;
+            margin:auto;
+        }
+
+        /* PASSWORD FORCE */
+
+        .strength{
+            height:8px;
+            border-radius:20px;
+            margin-top:8px;
+            background:#e9ecef;
+            overflow:hidden;
+        }
+
+        .strength-bar{
+            height:100%;
+            width:0%;
+            transition:0.3s;
+        }
+
+        @media(max-width:992px){
+
+            .left-side{
+                display:none;
+            }
+
+            .right-side{
+                padding:20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row main-container">
+
+        <!-- GAUCHE -->
+        <div class="col-lg-6 left-side text-center">
+                <div class="logo_img mb-3">
+                    <img src="src/images/logo_simple_wonderpro.png" alt="Logo WonderPro" class="img-fluid shadow" style="width:250px; height:150px; object-fit:cover;">
+                </div>
+            <h1>Bienvenue sur WonderPro</h1>
+
+            <p>
+                Créez votre compte et rejoignez le plus grand annuaire professionnel de Bafoussam.
+            </p>
+
+        </div>
+
+        <!-- DROITE -->
+
+        <div class="col-lg-6 right-side">
+
+            <div class="register-card">
+
+                <h2>Créer un compte</h2>
+
+                <p>
+                    Suivez les étapes pour terminer votre inscription.
+                </p>
+
+                <div class="mb-4">
+                    <a href="index.php?action=accueil" class="btn btn-sm btn-outline-primary rounded-3">
+                        <i class="bi bi-house-fill me-2"></i> Retour à l'accueil
+                    </a>
+                </div>
+
+                <!-- BARRE -->
+
+                <div class="progress">
+                    <div class="progress-bar bg-primary" id="progressBar" style="width:25%"></div>
+                </div>
+
+                <!-- ALERT -->
+
+                <div class="alert alert-danger d-none" id="errorBox"></div>
+
+                <form action="index.php?action=enregistrer" method="POST" enctype="multipart/form-data" id="registerForm">
+
+                    <!-- STEP 1 -->
+
+                    <div class="step active">
+
+                        <h5 class="mb-4">
+                            <i class="bi bi-person-circle me-2"></i>
+                            Informations personnelles
+                        </h5>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">Nom *</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+
+                                    <input type="text" class="form-control" name="nom" required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">Prénom</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+
+                                    <input type="text" class="form-control" name="prenom">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">Email *</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+
+                                    <input type="email" class="form-control" name="email" required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">Téléphone *</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-telephone"></i>
+                                    </span>
+
+                                    <input type="tel" class="form-control" name="telephone" required>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEP 2 -->
+
+                    <div class="step">
+
+                        <h5 class="mb-4">
+                            <i class="bi bi-person-badge me-2"></i>
+                            Choisissez votre profil
+                        </h5>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <input type="radio" class="btn-check" name="type_utilisateur" id="visiteur" value="Visiteur" checked>
+
+                                <label class="user-type w-100" for="visiteur">
+
+                                    <i class="bi bi-eye fs-1 d-block mb-2"></i>
+
+                                    <strong>Visiteur</strong>
+
+                                    <p class="small mt-2">
+                                        Explorer les entreprises
+                                    </p>
+
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <input type="radio" class="btn-check" name="type_utilisateur" id="entreprise" value="Entreprise">
+
+                                <label class="user-type w-100" for="entreprise">
+
+                                    <i class="bi bi-building fs-1 d-block mb-2"></i>
+
+                                    <strong>Entreprise</strong>
+
+                                    <p class="small mt-2">
+                                        Publier votre activité
+                                    </p>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEP 3 -->
+
+                    <div class="step" id="entrepriseStep">
+
+                        <h5 class="mb-4">
+                            <i class="bi bi-building-gear me-2"></i>
+                            Informations entreprise
+                        </h5>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">
+                                    Nom entreprise
+                                </label>
+
+                                <input type="text" class="form-control" name="nom_entreprise">
+
+                            </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                RCCM
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="rccm">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Site web
+                            </label>
+
+                            <input
+                                type="url"
+                                class="form-control"
+                                name="site_web"
+                                placeholder="https://monsite.com">
+                        </div>
+
+                        <div class="row">
+                            <label class="mt-2" for="form-label fw-bold"><b>Domaine(s)</b></label>
+                        <?php $domaines = $domaines ?? []; ?>
+                        <?php if(empty($domaines)): ?>
+                            <div class="col-12">
+                                <div class="alert alert-warning py-2">
+                                    Aucune catégorie disponible pour le moment.
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach($domaines as $domaine): ?>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="domaines[]"
+                                            value="<?= $domaine->id_domaine ?>"
+                                            id="<?= $domaine->id_domaine ?>">
+                                        <label
+                                            class="form-check-label"
+                                            for="<?= $domaine->id_domaine ?>"
+                                        >
+                                            <?= htmlspecialchars($domaine->nom_domaine) ?>
+                                        </label>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">
+                                    Quartier
+                                </label>
+                                <input type="text"
+                                    name="quartier"
+                                    class="form-control"
+                                    placeholder="Quartier de l'entreprise">
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">
+                                    Logo
+                                </label>
+
+                                <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+
+                            </div>
+
+                            <div class="col-12 text-center">
+
+                                <img src="" id="preview" class="logo-preview">
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label fw-bold">
+                                    Description
+                                </label>
+
+                                <textarea class="form-control" rows="4" name="description"></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEP 4 -->
+
+                    <div class="step">
+
+                        <h5 class="mb-4">
+                            <i class="bi bi-shield-lock me-2"></i>
+                            Sécurité
+                        </h5>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">
+                                    Mot de passe
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+
+                                    <input type="password" class="form-control" id="password" name="mot_de_passe" required>
+
+                                </div>
+
+                                <div class="strength">
+                                    <div class="strength-bar bg-danger" id="strengthBar"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-bold">
+                                    Confirmation
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-check mt-4">
+
+                            <input class="form-check-input" type="checkbox" required>
+
+                            <label class="form-check-label">
+                                J'accepte les conditions d'utilisation
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BOUTONS -->
+
+                    <div class="d-flex justify-content-between mt-5">
+
+                        <button type="button" class="btn btn-outline-secondary btn-custom px-4" id="prevBtn">
+
+                            <i class="bi bi-arrow-left"></i>
+                            Précédent
+                        </button>
+                        <button type="button" class="btn btn-primary btn-custom px-4" id="nextBtn">
+
+                            Suivant
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="btn btn-success btn-custom px-4 d-none" id="submitBtn">
+                            <i class="bi bi-check-circle"></i>
+                            Finaliser
+                        </button>
+                    </div>
+                    <div class="text-center mt-3">
+                        Vous avez déjà un compte ?
+                        <a href="index.php?action=connexion" class="register-link"><b>Se Connecter</b></a>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+ 
+
+
+<script src="src/bootstrap-5.3.8/js/jquery-3.7.1.min.js"></script>
+<script src="src/bootstrap-5.3.8/js/bootstrap.bundle.min.js"></script>
+<script src="src/bootstrap/vendor/js/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../src/bootstrap/vendor/css/jquery-te-1.4.0.css">
+
+<script>
+
+    let currentStep = 0;
+
+    const steps = $(".step");
+
+    function showStep(index){
+
+        steps.removeClass("active");
+
+        $(steps[index]).addClass("active");
+
+        $("#prevBtn").toggle(index > 0);
+
+        if(index === steps.length - 1){
+
+            $("#nextBtn").addClass("d-none");
+            $("#submitBtn").removeClass("d-none");
+
+        }else{
+
+            $("#nextBtn").removeClass("d-none");
+            $("#submitBtn").addClass("d-none");
+
+        }
+
+        let percent = ((index + 1) / steps.length) * 100;
+
+        $("#progressBar").css("width", percent + "%");
+    }
+
+    showStep(currentStep);
+
+    $("#nextBtn").click(function(){
+
+        if(currentStep === 1){
+
+            if($("#entreprise").is(":checked")){
+
+                currentStep++;
+
+            }else{
+
+                currentStep += 2;
+
+            }
+
+        }else{
+
+            currentStep++;
+
+        }
+
+        showStep(currentStep);
+
+    });
+
+    $("#prevBtn").click(function(){
+
+        if(currentStep === 3){
+
+            if($("#entreprise").is(":checked")){
+
+                currentStep--;
+
+            }else{
+
+                currentStep -= 2;
+
+            }
+
+        }else{
+
+            currentStep--;
+
+        }
+
+        showStep(currentStep);
+
+    });
+
+    // PREVIEW IMAGE
+
+    $("#logo").change(function(e){
+
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+
+            $("#preview")
+            .attr("src", e.target.result)
+            .fadeIn();
+
+        }
+
+        reader.readAsDataURL(this.files[0]);
+
+    });
+
+    // FORCE PASSWORD
+
+    $("#password").keyup(function(){
+
+        let value = $(this).val();
+
+        let strength = 0;
+
+        if(value.length >= 6) strength += 25;
+        if(value.match(/[A-Z]/)) strength += 25;
+        if(value.match(/[0-9]/)) strength += 25;
+        if(value.match(/[^A-Za-z0-9]/)) strength += 25;
+
+        $("#strengthBar").css("width", strength + "%");
+
+        if(strength <= 25){
+
+            $("#strengthBar").removeClass().addClass("strength-bar bg-danger");
+
+        }else if(strength <= 50){
+
+            $("#strengthBar").removeClass().addClass("strength-bar bg-warning");
+
+        }else if(strength <= 75){
+
+            $("#strengthBar").removeClass().addClass("strength-bar bg-info");
+
+        }else{
+
+            $("#strengthBar").removeClass().addClass("strength-bar bg-success");
+
+        }
+
+    });
+
+    // VALIDATION
+
+    $("#registerForm").submit(function(e){
+
+        let pwd = $("#password").val();
+        let cpwd = $("#confirmPassword").val();
+
+        if(pwd !== cpwd){
+
+            e.preventDefault();
+
+            $("#errorBox")
+            .removeClass("d-none")
+            .html("Les mots de passe ne correspondent pas.");
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
